@@ -24,6 +24,11 @@ class HomeTableViewController: UITableViewController {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.loadTweets()
+    }
+    
     @objc func loadTweets(){
         numberOfTweets = 20
         let myURL = "https://api.twitter.com/1.1/statuses/home_timeline.json"
@@ -85,6 +90,10 @@ class HomeTableViewController: UITableViewController {
             //cell.profileImageView.af.setImage(withURL: imageURL!)
             cell.profileImageView.af_setImage(withURL: imageURL!)
         }
+        cell.setFavorite(tweetArray[indexPath.row]["favorited"] as! Bool)
+        cell.tweetId = tweetArray[indexPath.row]["id"] as! Int
+        cell.retweeted = tweetArray[indexPath.row]["retweeted"] as! Bool
+        cell.setRetweeted(cell.retweeted)
         
         return cell
     }
